@@ -1,8 +1,15 @@
 from flask import Flask, render_template, jsonify
-from datetime import datetime
 import pandas as pd
+import threading
+import time
 
 app = Flask(__name__)
+
+# Путь к файлу Excel
+EXCEL_FILE_PATH = "C:\\Users\\d.ivanov\\Documents\\shedule.xlsx"
+
+# Глобальная переменная для хранения данных о расписании
+schedule_data = None
 
 
 def read_schedule(file_path):
@@ -17,7 +24,6 @@ def read_schedule(file_path):
         "Четверг",
         "Пятница",
         "Суббота",
-        "Воскресенье",
     ]
     week_schedule = {}
     for index, day in enumerate(days):
@@ -32,16 +38,34 @@ def read_schedule(file_path):
     return week_schedule
 
 
+def update_schedule():
+    """Обновляет глобальную переменную с данными расписания."""
+    global schedule_data
+    schedule_data = read_schedule(EXCEL_FILE_PATH)
+    print("Schedule updated at", time.ctime())  # Логгирование времени обновления
+
+
+def schedule_reader():
+    """Функция, которая вызывает update_schedule() каждую минуту."""
+    update_schedule()
+    threading.Timer(60, schedule_reader).start()  # Запускает себя каждую минуту
+
+
 @app.route("/")
 def index():
+    """Отображает главную страницу."""
     return render_template("index.html")
 
 
 @app.route("/schedule")
 def schedule():
-    data = read_schedule("C:\\Users\\d.ivanov\\Documents\\shedule.xlsx")
-    return jsonify(data)
+    """Возвращает текущее расписание в формате JSON."""
+    global schedule_data
+    if schedule_data is None:
+        update_schedule()  # Первоначальное чтение при запуске приложения
+    return jsonify(schedule_data)
 
 
 if __name__ == "__main__":
+    schedule_reader()  # Запуск фонового процесса обновления данных
     app.run(debug=True)
