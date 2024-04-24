@@ -1,7 +1,7 @@
 axios.get('/schedule')
     .then(function (response) {
         const schedule = response.data;
-        const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+        const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         const table = document.getElementById('schedule');
         let maxRows = 0;
         days.forEach(day => maxRows = Math.max(maxRows, schedule[day].length));
@@ -27,3 +27,8 @@ axios.get('/schedule')
     .catch(function (error) {
         console.log(error);
     });
+
+// Планирование автоматической перезагрузки страницы каждую минуту
+setInterval(function () {
+    window.location.reload();
+}, 60000);
