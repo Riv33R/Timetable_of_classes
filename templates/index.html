@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Расписание занятий</title>
+</head>
+<body>
+    <h1>Расписание на сегодня</h1>
+    <div id="schedule"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        axios.get('/schedule')
+            .then(function (response) {
+                const schedule = response.data;
+                const scheduleDiv = document.getElementById('schedule');
+                schedule.forEach(item => {
+                    const p = document.createElement('p');
+                    p.textContent = `${item.Дата}: ${item.Занятие} с ${item.Начало} до ${item.Конец}`;
+                    scheduleDiv.appendChild(p);
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    </script>
+</body>
+</html>
