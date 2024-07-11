@@ -1,3 +1,5 @@
-Flask==2.2.2
-pandas==1.4.3
-openpyxl==3.0.10
+Django
+djangorestframework
+psycopg2-binary # Используется для подключения к PostgreSQL
+django-cors-headers  # Для обработки CORS-запросов
+gunicorn  # WSGI HTTP сервер для запуска приложения
