@@ -1,0 +1,20 @@
+.schedule {
+    margin: 20px auto;
+    width: 80%;
+    text-align: left;
+  }
+  
+  .schedule table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .schedule th, .schedule td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .schedule th {
+    background-color: #f2f2f2;
+  }
+  

@@ -1,0 +1,32 @@
+.edit-schedule {
+    margin: 20px auto;
+    width: 50%;
+    text-align: left;
+  }
+  
+  .edit-schedule form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-schedule label {
+    margin: 10px 0 5px;
+  }
+  
+  .edit-schedule select, .edit-schedule input {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .edit-schedule button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-schedule button:hover {
+    background-color: #45a049;
+  }
+  
